@@ -1,0 +1,40 @@
+NMAP Cheatsheet
+
+1. Discovery (Penemuan Host)
+- nmap -sn 192.168.1.0/24         # Ping scan (host discovery)
+- nmap -Pn 192.168.1.100          # Skip host discovery (anggap host hidup)
+
+2. Port Scanning (Pemindaian Port)
+- nmap 192.168.1.100              # Scan port standar (top 1000)
+- nmap -p 1-1000 192.168.1.100    # Scan port 1-1000
+- nmap -p- 192.168.1.100          # Scan semua port (1-65535)
+
+3. Service & Version Detection
+- nmap -sV 192.168.1.100          # Deteksi versi layanan
+- nmap -sV -sS 192.168.1.100      # SYN scan + deteksi versi (stealth)
+
+4. OS Detection (Deteksi Sistem Operasi)
+- nmap -O 192.168.1.100           # Deteksi OS
+- nmap -A 192.168.1.100           # Deteksi OS, versi, skrip default (agresif)
+
+5. UDP Scan
+- nmap -sU 192.168.1.100          # Scan port UDP secara umum
+- nmap -sU -p 53,161,137 192.168.1.100  # Scan port UDP spesifik
+
+6. Script (NSE) Scanning
+- nmap --script vuln 192.168.1.100           # Scan kerentanan umum
+- nmap --script smb-vuln* -p 445 192.168.1.100 # Scan kerentanan SMB
+- nmap --script http-vuln* -p 80,443 192.168.1.100 # Scan kerentanan HTTP/HTTPS
+
+7. Output & Reporting
+- nmap -oN hasil.txt 192.168.1.100    # Output ke file normal
+- nmap -oX hasil.xml 192.168.1.100    # Output ke file XML
+- nmap -oG hasil.gnmap 192.168.1.100  # Output ke file grepable
+
+8. Speed & Timing
+- nmap -T4 192.168.1.100      # Scan cepat (T4: agresif)
+- nmap -T2 192.168.1.100      # Scan lebih lambat (T2: normal)
+
+9. Contoh Kombinasi
+- nmap -sV -O -p 1-1000 -T4 192.168.1.100
+- nmap --script vuln -sV -O 192.168.1.100
